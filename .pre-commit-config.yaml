@@ -1,0 +1,37 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+        args:
+          [ '--maxkb=123', '--enforce-all']
+    -   id: check-toml
+    -   id: no-commit-to-branch   # master and main are protected automatically
+
+-   repo: local                   # repos.local lets you run tools installed in your environment (like pylint),
+                                  # so they will pick up your pyproject.toml config (including fail-under)
+    hooks:
+    -   id: pylint                # unique identifier inside your config
+        name: pylint              # label you see in the output
+        entry: pylint             # actual command run
+        language: system          # don't create an isolated env, use the current shell/venv
+        types: [python]           # on which files to run the command
+        args: [ "--exit-zero" ]   # bc pylint returns non-zero exit code by default so it will always fail
+
+    -   id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+
+    -   id: ruff
+        name: ruff
+        entry: ruff check
+        language: system
+        types: [python]

@@ -1,0 +1,80 @@
+# -----------------------
+# PROJECT METADATA
+# -----------------------
+[project]
+name = "project_name"
+version = "0.1.0"                               # Current version of your project
+description = "A clean Python project template with linting, testing, and pre-commit setup."
+authors = [{ name = "Your Name", email = "example@mail.com" }]
+readme = "README.md"                            # Path to your project’s README file
+license = { text = "MIT" }                      # License identifier or text
+requires-python = ">=3.11"                      # Minimum supported Python version
+
+dependencies = []
+
+# -----------------------
+# DEVELOPMENT DEPENDENCIES
+# -----------------------
+[tool.poetry.group.dev.dependencies]
+pytest = "*"                                    # Testing framework
+ruff = "*"                                      # Fast linter and formatter
+mypy = "*"                                      # Static type checker
+pre-commit = "*"                                # Git hooks manager
+
+# -----------------------
+# PYTEST
+# -----------------------
+
+[tool.pytest.ini_options]
+pythonpath = [ "src/project_name" ]           # Add your package directory to Python path for tests
+testpaths = ["tests"]                           # Folder where pytest will look for tests
+addopts = "-v"                                  # Run tests in verbose mode
+
+# -----------------------
+# PYLINT
+# -----------------------
+
+[tool.pylint.main]
+fail-under = 7.0                                # Minimum score required for linting to pass
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [                                     # Disable specific linting warnings
+  "missing-docstring",                          # Ignore missing docstring warnings
+  "too-few-public-methods",                     # Ignore warning for classes with few public methods
+]
+
+[tool.pylint.format]
+max-line-length = 120                           # Set maximum allowed line length for Pylint
+
+[tool.pylint.similarities]
+min-similarity-lines = 5                        # Minimum duplicate line threshold before flagging code similarity
+
+# -----------------------
+# MYPY
+# -----------------------
+
+[tool.mypy]
+python_version = "3.11"                         # Target Python version for type checking
+mypy_path = "src/project_name"                  # Path to your source code for Mypy
+strict = true                                   # Enable all strict type-checking options
+disallow_untyped_defs = true                    # Require all functions to have type hints
+disallow_incomplete_defs = true                 # Require all arguments in functions to be fully typed
+check_untyped_defs = true                       # Type-check functions without type annotations
+warn_unused_ignores = true                      # Warn about unused '# type: ignore' comments
+warn_return_any = true                          # Warn if a function returns 'Any'
+warn_unused_configs = true                      # Warn about unused Mypy config options
+
+[[tool.mypy.overrides]]
+module = ["", ""]                               # Modules that don't have stubs and should not be type checked
+ignore_missing_imports = true                   # Ignore missing type stubs for listed modules
+
+# -----------------------
+# RUFF
+# -----------------------
+
+[tool.ruff]
+select = ["E", "F", "I", "B", "ANN"]            # E: pycodestyle (style), F: pyflakes (errors), I: import sorting, B: bug prevention, ANN: annotations
+ignore = ["E501"]                               # Ignore long line warning (handled by formatter)
+line-length = 120                               # Max allowed line length for Ruff
+target-version = "py311"                        # Target Python version for Ruff linting
+
