@@ -87,5 +87,8 @@ cython_debug/
 # Ruff stuff:
 .ruff_cache/
 
+# Poetry:
+poetry.lock
+
 # Custom
-# enter your custom paths
+data/
